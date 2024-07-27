@@ -1,0 +1,37 @@
+
+.Record {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    width: 376px;
+    height: 64px;
+    border-radius: 10px;
+}
+
+.Record-Description {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.Titulo{
+    font-size: 18px;
+}
+
+.Subtitulo {
+    font-size: 14px;
+}
+
+.Record button {
+    margin-right: 10px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.Record button img:hover {
+    border: 2px solid gray;
+}
