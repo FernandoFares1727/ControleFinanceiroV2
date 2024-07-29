@@ -1,0 +1,30 @@
+
+.Notation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Notation span {
+    font-size: 16px;
+}
+
+.Notation div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.Notation div img {
+    width: 16px;
+    height: 16px;
+}
+
+.Notation-Delete {
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+

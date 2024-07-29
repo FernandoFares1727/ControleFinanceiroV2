@@ -1,11 +1,15 @@
 
 .Record {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     background-color: #FFFFFF;
     width: 376px;
-    height: 64px;
     border-radius: 10px;
+}
+
+.Record-Header {
+    display: flex;
+    justify-content: space-between;
 }
 
 .Record-Description {
@@ -17,14 +21,14 @@
 }
 
 .Titulo{
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .Subtitulo {
-    font-size: 14px;
+    font-size: 16px;
 }
 
-.Record button {
+.Record-Header button {
     margin-right: 10px;
     padding: 0;
     background: none;
@@ -34,4 +38,47 @@
 
 .Record button img:hover {
     border: 2px solid gray;
+}
+
+.Record-Notations {
+    background: none;
+    border: none;
+    cursor: pointer
+}
+
+.Notation-Container {
+    margin: 5px;
+}
+
+.Notation-Container hr {
+    border: 1px solid;
+}
+
+.Add-Notation-Conatiner {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Add-Notation{
+    background: none;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.Notation-Total-Value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Notation-Total-Value img {
+    width: 16px;
+    height: 16px;
+}
+
+.Notation-Body {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
 }
