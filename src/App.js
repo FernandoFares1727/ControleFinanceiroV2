@@ -3,17 +3,20 @@ import Add from './images/add.svg';
 import Delete from './images/delete.svg';
 import { useState } from 'react';
 import Record from './Components/record/index.js';
+import createGuid from './extensions/guid.js';
 
 function App() {
   const [records, setRecords] = useState([]);
 
   const addRecord = () => {
-    setRecords([...records, { id: Date.now(), title: "Título", subtitle: "Subtítulo" }]);
-  };
+    setRecords([...records, { id:createGuid() ,date: Date.now(), title: "Título", subtitle: "Subtítulo" }])
+  }
 
   const removeRecord = (id) => {
     setRecords(records.filter(record => record.id !== id));
-  };
+  }
+
+  const sortedRecords = [...records].sort((a, b) => b.date - a.date)
 
   return (
     <div className="App">
@@ -27,9 +30,9 @@ function App() {
         </div>
 
         <div className='Record-Container'>
-          {records.map(record => (
+          {sortedRecords.map(record => (
             <Record 
-              key={record.id} 
+              key={record.date} 
               id={record.id}
               title= {record.title}
               subtitle= {record.subtitle}
