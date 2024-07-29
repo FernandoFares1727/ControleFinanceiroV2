@@ -1,6 +1,10 @@
 import './App.css';
 import Add from './images/add.svg';
 import Delete from './images/delete.svg';
+import Up from './images/up.svg';
+import Down from './images/down.svg';
+import AddNotation from './images/add-notation.svg';
+import Money from './images/money.svg';
 import { useState } from 'react';
 import Record from './Components/record/index.js';
 import createGuid from './extensions/guid.js';
@@ -17,6 +21,45 @@ function App() {
   }
 
   const sortedRecords = [...records].sort((a, b) => b.date - a.date)
+
+  const handleTitleChange = (id, newTitle) => {
+    const updatedRecords = records.map(record => {
+      if (record.id === id) {
+        record.title = newTitle
+        return {...record}
+      }
+      else {
+        return record
+      }
+    })
+    setRecords(updatedRecords)
+  }
+
+  const handleSubtitleChange = (id, newSubtitle) => {
+    const updatedRecords = records.map(record => {
+      if (record.id === id) {
+        record.subtitle = newSubtitle
+        return {...record}
+      }
+      else {
+        return record
+      }
+    })
+    setRecords(updatedRecords)
+  }
+
+  const handleNotationsChange = (id, newNotations) => {
+    const updatedRecords = records.map(record => {
+      if (record === id) {
+        record.notations = newNotations
+        return {...record}
+      }
+      else {
+        return record
+      }
+    })
+    setRecords(updatedRecords)
+  }
 
   return (
     <div className="App">
@@ -37,7 +80,15 @@ function App() {
               title= {record.title}
               subtitle= {record.subtitle}
               deleteIcon={Delete}
+              upIcon={Up}
+              downIcon={Down}
+              addNotation={AddNotation}
+              money={Money}
               onDelete={() => removeRecord(record.id)} 
+              createGuid={createGuid}
+              onTitleChange={(id, newTitle) => handleTitleChange(id, newTitle)}
+              onSubtitleChange={(id, newSubtitle) => handleSubtitleChange(id, newSubtitle)}
+              onNotationChange={(id, newNotations) => handleNotationsChange(id, newNotations)}
             />
           ))}
         </div>
