@@ -1,5 +1,8 @@
-import { useState,useRef } from 'react'
-import './style.css'
+import { useState,useRef } from 'react';
+import './style.css';
+import deleteIcon from '../../../images/delete.svg';
+import money from '../../../images/money.svg';
+import valueColor from '../../../extensions/valueColor';
 
 const Notation = (props) => {
 
@@ -29,10 +32,10 @@ const Notation = (props) => {
     return(<div className='Notation'>
         <span contentEditable={true} ref={descriptionRef} className='Notation-Description' onBlur={onDescriptionChanged}>{description}</span>
         <div>
-            <img src={props.money} alt='Money'/>
-            <span style={{color: props.valueColor(value)}} contentEditable={true} ref={valueRef} className='Notation-Value' onBlur={onValueChanged}>{value}</span>
+            <img src={money} alt='Money'/>
+            <span style={{color: valueColor(value)}} contentEditable={true} ref={valueRef} className='Notation-Value' onBlur={onValueChanged}>{value}</span>
             <button onClick={props.onDelete} className='Notation-Delete'>
-                <img src={props.delete} alt='Notation-Delete'/>
+                <img src={deleteIcon} alt='Notation-Delete'/>
             </button>
         </div>
     </div>)
