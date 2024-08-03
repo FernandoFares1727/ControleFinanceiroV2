@@ -3,6 +3,7 @@ import './style.css'
 
 const Notation = (props) => {
 
+    const[date,setDate] = useState(props.date)
     const [description, setDescription] = useState(props.description)
     const [value, setValue] = useState(props.value)
 

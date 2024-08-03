@@ -5,19 +5,57 @@ import Up from './images/up.svg';
 import Down from './images/down.svg';
 import AddNotation from './images/add-notation.svg';
 import Money from './images/money.svg';
-import { useState } from 'react';
+import Save from './images/save.svg';
+import { useState, useEffect } from 'react';
 import Record from './Components/record/index.js';
 import createGuid from './extensions/guid.js';
+import appKey from './extensions/appKey.js';
 
 function App() {
+
   const [records, setRecords] = useState([]);
 
+  const loadServerRecords = () => {
+    const newRecords = []
+    for (let i = 0; i < localStorage.length; i++){
+      const key = localStorage.key(i)
+      const object = localStorage.getItem(key)
+
+      let parsedObject;
+      try {
+          parsedObject = JSON.parse(object);
+      } catch (e) {
+          // Se o valor não for um JSON válido, pule para a próxima iteração
+          continue;
+      }
+
+      const applicationKey = parsedObject.appKey
+      if (applicationKey === undefined || applicationKey !== appKey())
+        continue
+        
+        newRecords.push(        
+          {id: parsedObject.id,
+          date:parsedObject.date,
+          title:parsedObject.title,
+          subtitle:parsedObject.subtitle,
+          notations: parsedObject.notations}
+        ) 
+    }
+    setRecords(newRecords)
+  }
+
+    // Call loadServerRecords on component mount using useEffect
+    useEffect(() => {
+      loadServerRecords()
+    }, []) // Empty dependency array ensures it runs only once on mount
+
   const addRecord = () => {
-    setRecords([...records, { id:createGuid() ,date: Date.now(), title: "Título", subtitle: "Subtítulo" }])
+    setRecords([...records, { id:createGuid() ,date: Date.now(), title: "Título", subtitle: "Subtítulo", notations:[] }])
   }
 
   const removeRecord = (id) => {
     setRecords(records.filter(record => record.id !== id));
+    localStorage.removeItem(id)
   }
 
   const sortedRecords = [...records].sort((a, b) => b.date - a.date)
@@ -76,14 +114,17 @@ function App() {
           {sortedRecords.map(record => (
             <Record 
               key={record.date} 
+              date={record.date}
               id={record.id}
               title= {record.title}
               subtitle= {record.subtitle}
+              notations={record.notations}
               deleteIcon={Delete}
               upIcon={Up}
               downIcon={Down}
               addNotation={AddNotation}
               money={Money}
+              save={Save}
               onDelete={() => removeRecord(record.id)} 
               createGuid={createGuid}
               onTitleChange={(id, newTitle) => handleTitleChange(id, newTitle)}

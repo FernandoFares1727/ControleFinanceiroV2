@@ -1,9 +1,11 @@
 import './style.css';
-import { useState, useRef } from 'react';
+import { useState, useRef,useEffect } from 'react';
 import Notation from './notation/index.js';
+import appKey from '../../extensions/appKey.js';
 
 const Record = (props) => {
 
+    const[date,setDate] = useState(props.date)
     const [title, setTitle] = useState(props.title)
     const [subtitle, setSubtitle] = useState(props.subtitle)
 
@@ -40,6 +42,37 @@ const Record = (props) => {
 
     const [notations, setNotations] = useState([])
 
+    // Calculate the total value efficiently using a reducer function
+    const calculateTotalValue = () => {
+        const total = notations.reduce((acc, notation) => acc + parseFloat(notation.value), 0)
+        return total 
+    }
+
+    const [totalValue,setTotalValue] = useState(calculateTotalValue())
+
+    useEffect(() => {
+        const serverNotations = props.notations
+        let totalServerValue = 0
+        const newNotations = [] // Create an empty array to store new notations
+      
+        if (serverNotations) { // Check if notations are provided in props
+          serverNotations.forEach((serverNotation) => {
+            totalServerValue += parseFloat(serverNotation.value);
+            newNotations.push({
+              id: serverNotation.id,
+              date: serverNotation.date,
+              description: serverNotation.description,
+              value: serverNotation.value,
+            })
+          })
+        }
+      
+        // Update notations state after processing all server notations
+        setNotations(newNotations)
+        setTotalValue(parseFloat(totalServerValue))
+    }, []);
+      
+
     const addNotation = () => {
         setNotations([...notations, { id:props.createGuid() ,date: Date.now(), description: "Descrição", value: 0 }])
     }
@@ -51,14 +84,6 @@ const Record = (props) => {
     }
         
     const sortedNotations = [...notations].sort((a, b) => b.date - a.date)
-
-    // Calculate the total value efficiently using a reducer function
-    const calculateTotalValue = () => {
-        const total = notations.reduce((acc, notation) => acc + parseFloat(notation.value), 0)
-        return total 
-    }
-
-    const [totalValue,setTotalValue] = useState(calculateTotalValue())
 
     const valueColor = (value) => {
         if (value == 0)
@@ -94,10 +119,25 @@ const Record = (props) => {
         setNotations(updatedNotations)
         setTotalValue(calculateTotalValue(updatedNotations)) // Recalculate total value
         props.onNotationChange(updatedNotations)
-    }      
+    }     
+    
+    const saveRecord = () => {
+        var json = JSON.stringify({
+            appKey: appKey(),
+            id: props.id,
+            date: date,
+            title: title,
+            subtitle: subtitle,
+            notations:notations
+        })
+        localStorage.setItem(props.id, json)
+    }
 
     return (
         <div className="Record">
+            <button onClick={saveRecord} className='Record-Save'>
+                <img src={props.save} alt='Save'/>
+            </button>
             <div className='Record-Header'>
                 <div className='Record-Description'>
                     <span ref={titleRef} onBlur={onTitleChanged} className='Titulo' contentEditable={true}>{title}</span>
@@ -128,6 +168,7 @@ const Record = (props) => {
                     {sortedNotations.map(notation => (
                       <Notation
                         key={notation.date}
+                        date={notation.date}
                         id={notation.id}
                         description= {notation.description}
                         value={notation.value}
