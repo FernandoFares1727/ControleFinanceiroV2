@@ -1,7 +1,15 @@
 import './style.css';
+import deleteIcon from '../../images/delete.svg';
+import upIcon from '../../images/up.svg';
+import downIcon from '../../images/down.svg';
+import addNotationIcon from '../../images/add-notation.svg';
+import money from '../../images/money.svg';
+import save from '../../images/save.svg';
 import { useState, useRef,useEffect } from 'react';
 import Notation from './notation/index.js';
 import appKey from '../../extensions/appKey.js';
+import createGuid from '../../extensions/guid.js';
+import valueColor from '../../extensions/valueColor.js';
 
 const Record = (props) => {
 
@@ -32,8 +40,8 @@ const Record = (props) => {
 
     const notationsIcon = () => {
         return notationsEnabled 
-            ? props.upIcon
-            : props.downIcon
+            ? upIcon
+            : downIcon
     }
 
     const showNotations = () => {
@@ -74,7 +82,7 @@ const Record = (props) => {
       
 
     const addNotation = () => {
-        setNotations([...notations, { id:props.createGuid() ,date: Date.now(), description: "Descrição", value: 0 }])
+        setNotations([...notations, { id:createGuid() ,date: Date.now(), description: "Descrição", value: 0 }])
     }
         
     const removeNotation = (id) => {
@@ -84,14 +92,6 @@ const Record = (props) => {
     }
         
     const sortedNotations = [...notations].sort((a, b) => b.date - a.date)
-
-    const valueColor = (value) => {
-        if (value == 0)
-            return "#000000"
-        else if (value < 0)
-            return "#FF033E"
-        return "#6D9406"
-    }
 
     const handleNotationDescriptionChange = (id, newDescription) => {
         const updatedNotations = notations.map(notation => {
@@ -136,7 +136,7 @@ const Record = (props) => {
     return (
         <div className="Record">
             <button onClick={saveRecord} className='Record-Save'>
-                <img src={props.save} alt='Save'/>
+                <img src={save} alt='Save'/>
             </button>
             <div className='Record-Header'>
                 <div className='Record-Description'>
@@ -144,7 +144,7 @@ const Record = (props) => {
                     <span ref={subtitleRef} onBlur={onSubtitleChanged} className='Subtitulo' contentEditable={true}>{subtitle}</span>
                 </div>
                 <button onClick={props.onDelete}>
-                    <img src={props.deleteIcon} alt='delete'/>
+                    <img src={deleteIcon} alt='delete'/>
                 </button>
             </div>
             <button onClick={showNotations} className='Record-Notations'>
@@ -155,12 +155,12 @@ const Record = (props) => {
                     <hr />
                     <div onClick={addNotation} className='Add-Notation-Conatiner'>
                         <button className='Add-Notation'>
-                            <img src={props.addNotation} alt='Add Notation'/>
+                            <img src={addNotationIcon} alt='Add Notation'/>
                         </button>
                     </div>
                     {sortedNotations.length > 0 && ( // Check if sortedNotations has elements
                     <div className="Notation-Total-Value">
-                        <img src={props.money} alt='Money'/>
+                        <img src={money} alt='Money'/>
                         <span style={{color: valueColor(totalValue)}}>{totalValue}</span>
                     </div>
                     )}
@@ -172,9 +172,6 @@ const Record = (props) => {
                         id={notation.id}
                         description= {notation.description}
                         value={notation.value}
-                        delete={props.deleteIcon}
-                        money={props.money}
-                        valueColor={valueColor}
                         onDelete={() => removeNotation(notation.id)}
                         onDescriptionChange={(id, newDescription) => handleNotationDescriptionChange(id, newDescription)}
                         onValueChange={(id, newValue) => handleNotationValueChange(id, newValue)}

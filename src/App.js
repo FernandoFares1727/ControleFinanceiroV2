@@ -1,11 +1,5 @@
 import './App.css';
 import Add from './images/add.svg';
-import Delete from './images/delete.svg';
-import Up from './images/up.svg';
-import Down from './images/down.svg';
-import AddNotation from './images/add-notation.svg';
-import Money from './images/money.svg';
-import Save from './images/save.svg';
 import { useState, useEffect } from 'react';
 import Record from './Components/record/index.js';
 import createGuid from './extensions/guid.js';
@@ -119,12 +113,6 @@ function App() {
               title= {record.title}
               subtitle= {record.subtitle}
               notations={record.notations}
-              deleteIcon={Delete}
-              upIcon={Up}
-              downIcon={Down}
-              addNotation={AddNotation}
-              money={Money}
-              save={Save}
               onDelete={() => removeRecord(record.id)} 
               createGuid={createGuid}
               onTitleChange={(id, newTitle) => handleTitleChange(id, newTitle)}
