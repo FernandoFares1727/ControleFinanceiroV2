@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/ControleFinanceiroV2/static/css/main.1c4631c0.css",
+    "main.js": "/ControleFinanceiroV2/static/js/main.3a8fdbae.js",
+    "static/media/delete.svg": "/ControleFinanceiroV2/static/media/delete.1ba2ecef9ec5ed2659ee4eab5317b180.svg",
+    "static/media/save.svg": "/ControleFinanceiroV2/static/media/save.33604445b44fb3bacc6744a82de555b1.svg",
+    "index.html": "/ControleFinanceiroV2/index.html",
+    "static/media/money.svg": "/ControleFinanceiroV2/static/media/money.a56a43593fa7a2cc0fa41443f4bb05ee.svg",
+    "static/media/add-notation.svg": "/ControleFinanceiroV2/static/media/add-notation.b1343fadee094fe38ab1d502090867db.svg",
+    "static/media/add.svg": "/ControleFinanceiroV2/static/media/add.88a9f347b2721cd2e09a46267755c8e6.svg",
+    "static/media/up.svg": "/ControleFinanceiroV2/static/media/up.1a4fe4da21ff530b86c55b8d968c2e80.svg",
+    "static/media/down.svg": "/ControleFinanceiroV2/static/media/down.e6d1651f20ed55fa7cd8b5e5a05c28c2.svg",
+    "main.1c4631c0.css.map": "/ControleFinanceiroV2/static/css/main.1c4631c0.css.map",
+    "main.3a8fdbae.js.map": "/ControleFinanceiroV2/static/js/main.3a8fdbae.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1c4631c0.css",
+    "static/js/main.3a8fdbae.js"
+  ]
+}
