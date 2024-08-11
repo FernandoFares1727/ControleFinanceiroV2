@@ -4,6 +4,11 @@
     justify-content: space-between;
 }
 
+.Notation-Description {
+    max-width: 100%; /* Optional: Set a maximum width if needed */
+    overflow-wrap: break-word; /* Allow text wrapping within words */
+}
+
 .Notation span {
     font-size: 16px;
 }
