@@ -114,7 +114,6 @@ function App() {
               subtitle= {record.subtitle}
               notations={record.notations}
               onDelete={() => removeRecord(record.id)} 
-              createGuid={createGuid}
               onTitleChange={(id, newTitle) => handleTitleChange(id, newTitle)}
               onSubtitleChange={(id, newSubtitle) => handleSubtitleChange(id, newSubtitle)}
               onNotationChange={(id, newNotations) => handleNotationsChange(id, newNotations)}

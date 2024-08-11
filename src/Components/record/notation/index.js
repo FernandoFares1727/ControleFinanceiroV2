@@ -23,11 +23,15 @@ const Notation = (props) => {
 
     const onValueChanged = () => {
         if (valueRef.current) {
-            const newValue = valueRef.current.innerText
+          const newValue = valueRef.current.innerText        
+          if (!isNaN(parseFloat(newValue))) {
             setValue(newValue)
             props.onValueChange(props.id, newValue)
+          } else {
+            valueRef.current.innerText = value
+          }
         }
-    }
+    }        
 
     return(<div className='Notation'>
         <span contentEditable={true} ref={descriptionRef} className='Notation-Description' onBlur={onDescriptionChanged}>{description}</span>
