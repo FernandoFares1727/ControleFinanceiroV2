@@ -36,6 +36,12 @@ const Record = (props) => {
         }
     }
 
+    const handleDeleteRecord = () => {
+        if (window.confirm("Você tem certeza que deseja excluir este registro? Esta ação não pode ser desfeita.")) {
+            props.onDelete();
+        }
+    };
+
     const [notationsEnabled, setNotationsEnabled] = useState(false)
 
     const notationsIcon = () => {
@@ -143,7 +149,7 @@ const Record = (props) => {
                     <span ref={titleRef} onBlur={onTitleChanged} className='Titulo' contentEditable={true}>{title}</span>
                     <span ref={subtitleRef} onBlur={onSubtitleChanged} className='Subtitulo' contentEditable={true}>{subtitle}</span>
                 </div>
-                <button onClick={props.onDelete}>
+                <button onClick={handleDeleteRecord}>
                     <img src={deleteIcon} alt='delete'/>
                 </button>
             </div>
