@@ -22,12 +22,18 @@ const Notation = (props) => {
 
   const onValueChanged = () => {
     if (valueRef.current) {
-      const newValue = valueRef.current.innerText
-      if (!isNaN(parseFloat(newValue))) {
+      const newValue = valueRef.current.innerText.trim() // Trim leading and trailing spaces
+
+      // Allow only numbers, '+' and '-' signs
+      const allowedChars = /^[+-.]?\d+$/ // Regular expression for allowed characters
+      if (allowedChars.test(newValue)) {
         setValue(newValue)
+        valueRef.current.innerText = newValue
         props.onValueChange(props.id, newValue)
       } else {
         valueRef.current.innerText = value
+        window.alert(`Invalid input: "${newValue}". Only numbers, '+','-' and '.' are allowed.`)
+        // Optional: Reset the value to the previous one
       }
     }
   }
